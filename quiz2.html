@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .options {
+            text-align: left;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container" id="quiz-container">
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="btn-container">
+        <button class="btn" onclick="loadQuestion(0)">1</button>
+        <button class="btn" onclick="loadQuestion(1)">2</button>
+        <button class="btn" onclick="loadQuestion(2)">3</button>
+        <button class="btn" onclick="loadQuestion(3)">4</button>
+        <button class="btn" onclick="loadQuestion(4)">5</button>
+        <button class="btn" onclick="loadQuestion(5)">6</button>
+        <button class="btn" onclick="loadQuestion(6)">7</button>
+        <button class="btn" onclick="loadQuestion(7)">8</button>
+        <button class="btn" onclick="loadQuestion(8)">9</button>
+        <button class="btn" onclick="loadQuestion(9)">10</button>
+    </div>
+    <div class="btn-container">
+        <button class="btn" id="submitButton" onclick="submitQuiz()">Submit</button>
+    </div>
+</div>
+
+<script>
+    var score = 0;
+
+    var questions = [
+        {
+            question: "What is the capital of Australia?",
+            options: ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+            answer: 2
+        },
+        {
+            question: "In which year did World War II end?",
+            options: ["1943", "1945", "1947", "1950"],
+            answer: 1
+        },
+        {
+            question: "Which gas do plants absorb from the atmosphere?",
+            options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Methane"],
+            answer: 1
+        },
+        {
+            question: "Who painted the Mona Lisa?",
+            options: ["Pablo Picasso", "Leonardo da Vinci", "Vincent van Gogh", "Michelangelo"],
+            answer: 1
+        },
+        {
+            question: "What is the largest planet in our solar system?",
+            options: ["Earth", "Venus", "Jupiter", "Mars"],
+            answer: 2
+        },
+        {
+            question: "Which planet is known as the 'Red Planet'?",
+            options: ["Mars", "Venus", "Jupiter", "Saturn"],
+            answer: 0
+        },
+        {
+            question: "What is the chemical symbol for gold?",
+            options: ["Ag", "Au", "Fe", "Cu"],
+            answer: 1
+        },
+        {
+            question: "Who wrote 'To Kill a Mockingbird'?",
+            options: ["George Orwell", "Harper Lee", "Jane Austen", "Mark Twain"],
+            answer: 1
+        },
+        {
+            question: "What is the largest mammal in the world?",
+            options: ["Lion", "Elephant", "Blue Whale", "Giraffe"],
+            answer: 2
+        },
+        {
+            question: "Which gas is most abundant in the Earth's atmosphere?",
+            options: ["Carbon Dioxide", "Oxygen", "Nitrogen", "Argon"],
+            answer: 2
+        }
+    ];
+
+    function loadQuestion(questionNumber) {
+        var q = questions[questionNumber];
+        score = 0; // Resetting the score on each question change
+        document.getElementById('question').innerHTML = (questionNumber + 1) + ". " + q.question;
+        var optionsHtml = '';
+        for (var i = 0; i < q.options.length; i++) {
+            optionsHtml += '<div class="option"><input type="radio" name="option" value="' + i + '" id="option' + (i + 1) + '"><label for="option' + (i + 1) + '">' + q.options[i] + '</label></div>';
+        }
+        document.getElementById('options').innerHTML = optionsHtml;
+    }
+
+    function submitQuiz() {
+        var options = document.querySelectorAll('input[type="radio"]:checked');
+        for (var i = 0; i < options.length; i++) {
+            if (parseInt(options[i].value) === questions[i].answer) {
+                score++;
+            }
+        }
+        var quizContainer = document.getElementById('quiz-container');
+        quizContainer.innerHTML = '<h2>Quiz Completed!</h2><p>Your score is: ' + score + ' out of 10</p>';
+    }
+</script>
+
+</body>
+</html>
